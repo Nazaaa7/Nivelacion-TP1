@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tp1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="cajaTexto" placeholder="Escribe algo..." onkeydown="verificarEnter(event)">
+        <button id="btnCambiarColor" onclick="cambiarColor()">Cambiar Color</button>
+    </div>
+
+    <!-- Ventana Emergente -->
+    <div id="ventanaEmergente" class="ventanaEmergente">
+        <p id="textoVentana"></p>
+        <button onclick="cerrarVentana()">Cerrar</button>
+    </div>
+
+    <script>
+        let contadorColor = 0;
+
+        // Función para verificar si se presionó Enter
+        function verificarEnter(event) {
+            if (event.key === 'Enter') {
+                let texto = document.getElementById('cajaTexto').value;
+                document.getElementById('textoVentana').innerText = texto;
+                document.getElementById('ventanaEmergente').style.display = 'block';  // Muestra la ventana emergente
+            }
+        }
+
+        // Función para cerrar la ventana emergente
+        function cerrarVentana() {
+            document.getElementById('ventanaEmergente').style.display = 'none';  // Oculta la ventana emergente
+        }
+
+        // Función para cambiar el color de la caja de texto y el texto
+        function cambiarColor() {
+            const cajaTexto = document.getElementById('cajaTexto');
+            const colores = [
+                { fondo: 'white', texto: 'black' },
+                { fondo: 'black', texto: 'white' },
+                { fondo: 'lightblue', texto: 'red' }
+            ];
+
+            // Cambiar el color según el contador
+            cajaTexto.style.backgroundColor = colores[contadorColor].fondo;
+            cajaTexto.style.color = colores[contadorColor].texto;
+
+            // Incrementar el contador para el siguiente color
+            contadorColor = (contadorColor + 1) % colores.length;
+        }
+    </script>
+</body>
+</html>
